@@ -12,7 +12,7 @@ namespace Bachat.Controllers
         [Route("/api/getsummary")]
         public string GetSummary()
         {
-            return "Get Summary of all transactions";
+            return "Testing CI/CD";
         }
 
         [Route("/api/getmonths")]
