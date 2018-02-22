@@ -20,5 +20,12 @@ namespace Bachat.Controllers
         {
             return "Get Summary of transactions for a month";
         }
+
+        [Route("/api/postTransactions")]
+        public IActionResult postTransactions(double amount, string category)
+        {
+            var fileProvider = FileUtilities.GetFileProvider();
+            fileProvider.AddEntry(amount, category);
+        }
     }
 }
