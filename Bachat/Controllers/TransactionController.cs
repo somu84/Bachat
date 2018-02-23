@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
+using Bachat.Providers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,20 +14,31 @@ namespace Bachat.Controllers
         [Route("/api/getsummary")]
         public string GetSummary()
         {
-            return "Testing CI/CD";
+            return "WIP!!!!!!!!!!!!!@#!@#!@#!@#!@#!@#";
+
         }
 
         [Route("/api/getmonths")]
-        public string GetMonths()
+        public async Task<string> GetMonths()
         {
-            return "Get Summary of transactions for a month";
+            IDataStoreProvider dataProvider = new FileDataStoreProvider();
+            var transactions = await dataProvider.FetchAllTransactionsAsync(DateTime.Now);
+            var outPut = new StringBuilder();
+            outPut.Append($"Showing all transactions for {DateTime.Now.ToString("MMM - yyyy")}");
+            outPut.Append(Environment.NewLine);
+            foreach (var trans in transactions)
+            {
+                outPut.Append($"Category: {trans.Category}       Amount: ${trans.Amount}");
+                outPut.Append(Environment.NewLine);
+            }
+            return outPut.ToString();
         }
 
-        [Route("/api/postTransactions")]
+        /*[Route("/api/postTransactions")]
         public IActionResult postTransactions(double amount, string category)
         {
-            var fileProvider = FileUtilities.GetFileProvider();
-            fileProvider.AddEntry(amount, category);
-        }
+            IDataStoreProvider fileProvider = new FileDataStoreProvider();
+            
+        }*/
     }
 }
